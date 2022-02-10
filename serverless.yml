@@ -1,0 +1,37 @@
+service: reckoner-bot
+
+plugins:
+  - serverless-dotenv-plugin
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: eu-north-1
+  environment:
+    TELEGRAM_BOT_TOKEN: ${file(./.env):TELEGRAM_BOT_TOKEN, ''}
+    AWS_ENDPOINT: ${file(./.env):AWS_ENDPOINT, ''}
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: webhook
+          method: post # POST is required for Telegram Webhook
+
+  setWebhook:
+    handler: handler.setWebhook
+    events:
+      - http:
+          path: setWebhook
+          method: post
+
+  deleteWebhook:
+    handler: handler.deleteWebhook
+    events:
+      - http:
+          path: deleteWebhook
+          method: post
