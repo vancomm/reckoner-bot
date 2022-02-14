@@ -2,29 +2,11 @@
 
 require("dotenv").config();
 const { Telegraf } = require("telegraf");
-// const { initBotCommands } = require("./bot-commands.js");
+const { initBotCommands } = require("./bot-commands.js");
 
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 
-bot.start((ctx) => {
-  return ctx.reply("Hello!")
-});
-
-bot.help((ctx) => {
-  return ctx.reply('Work in progress!')
-});
-
-bot.command("secret", (ctx) => {
-  return ctx.replyWithMarkdownV2('||Аня и Лера красотки||');
-});
-
-bot.on("text", (ctx) => {
-  return ctx.reply(ctx.message.text);
-});
-
-// initBotCommands(bot);
-
-// bot.launch();
+initBotCommands(bot);
 
 module.exports.hello = async (event) => {
   const response = {
