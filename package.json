@@ -2,7 +2,8 @@
   "name": "reckoner-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "handler.js",
+  "type": "module",
+  "main": "index.js",
   "scripts": {
     "deploy": "serverless deploy"
   },
@@ -11,6 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "serverless-dotenv-plugin": "^3.12.2",
+    "serverless-esbuild": "^1.24.1",
     "serverless-offline": "^8.4.0"
   },
   "dependencies": {

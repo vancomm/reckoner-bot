@@ -3,6 +3,7 @@ service: reckoner-bot
 plugins:
   - serverless-dotenv-plugin
   - serverless-offline
+  - serverless-esbuild
 
 frameworkVersion: '3'
 
@@ -13,11 +14,10 @@ provider:
   region: eu-north-1
   environment:
     TELEGRAM_BOT_TOKEN: ${file(./.env):TELEGRAM_BOT_TOKEN, ''}
-    AWS_ENDPOINT: ${file(./.env):AWS_ENDPOINT, ''}
 
 functions:
   hello:
-    handler: handler.hello
+    handler: src/handler.hello
     events:
       - http:
           path: webhook
@@ -25,7 +25,7 @@ functions:
           cors: true
 
   setWebhook:
-    handler: handler.setWebhook
+    handler: src/handler.setWebhook
     events:
       - http:
           path: setWebhook
@@ -33,7 +33,7 @@ functions:
           cors: true
 
   deleteWebhook:
-    handler: handler.deleteWebhook
+    handler: src/handler.deleteWebhook
     events:
       - http:
           path: deleteWebhook

@@ -1,7 +1,7 @@
-const { Telegraf } = require("telegraf");
-const axios = require('axios');
+import axios from 'axios';
+import { Telegraf } from 'telegraf';
 
-const initBotCommands = (bot) => {
+export default async function initBotCommands(bot) {
   bot.start((ctx) => {
     return ctx.reply("Hello!")
   });
@@ -36,8 +36,4 @@ const initBotCommands = (bot) => {
     }
 
   });
-};
-
-module.exports = {
-  initBotCommands,
 };

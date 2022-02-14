@@ -1,14 +1,12 @@
-'use strict';
-
-require("dotenv").config();
-const { Telegraf } = require("telegraf");
-const { initBotCommands } = require("./bot-commands.js");
+import 'dotenv/config';
+import { Telegraf } from 'telegraf';
+import initBotCommands from './bot-commands.js';
 
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 
 initBotCommands(bot);
 
-module.exports.hello = async (event) => {
+export async function hello(event) {
   const response = {
     statusCode: 200,
     headers: {
@@ -35,7 +33,7 @@ module.exports.hello = async (event) => {
   return response;
 };
 
-module.exports.setWebhook = async (event) => {
+export async function setWebhook (event) {
   const response = {
     statusCode: 200,
     headers: {
@@ -54,7 +52,7 @@ module.exports.setWebhook = async (event) => {
   return response;
 };
 
-module.exports.deleteWebhook = async (event) => {
+export async function deleteWebhook (event) {
   const response = {
     statusCode: 200,
     headers: {
