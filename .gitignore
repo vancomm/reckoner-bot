@@ -2,3 +2,4 @@ node_modules
 .serverless
 .env
 .sls_def_config.yml
+Makefile

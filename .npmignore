@@ -4,3 +4,6 @@ jspm_packages
 
 # Serverless directories
 .serverless
+
+.sls_def_config.yml
+Makefile
