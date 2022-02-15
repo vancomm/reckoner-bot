@@ -1,10 +1,8 @@
+/* eslint-disable no-unused-vars */
 import 'dotenv/config';
-import { Telegraf } from 'telegraf';
-import initBotCommands from './bot-commands.js';
+import initBot from './bot-commands.js';
 
-const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
-
-initBotCommands(bot);
+const bot = initBot();
 
 export async function hello(event) {
   const response = {
@@ -31,9 +29,9 @@ export async function hello(event) {
   }
 
   return response;
-};
+}
 
-export async function setWebhook (event) {
+export async function setWebhook(event) {
   const response = {
     statusCode: 200,
     headers: {
@@ -41,7 +39,9 @@ export async function setWebhook (event) {
     },
     body: '',
   };
+
   const url = `https://${event.headers.Host}/${event.requestContext.stage}/webhook`;
+
   try {
     await bot.telegram.setWebhook(url);
   } catch (err) {
@@ -49,10 +49,11 @@ export async function setWebhook (event) {
     response.statusCode = 404;
     response.body = 'Not Found';
   }
-  return response;
-};
 
-export async function deleteWebhook (event) {
+  return response;
+}
+
+export async function deleteWebhook(event) {
   const response = {
     statusCode: 200,
     headers: {
@@ -60,12 +61,14 @@ export async function deleteWebhook (event) {
     },
     body: '',
   };
+
   try {
-    await bot.telegram.deleteWebhook({drop_pending_updates: true});
+    await bot.telegram.deleteWebhook({ drop_pending_updates: true });
   } catch (err) {
     console.log(err);
     response.statusCode = 404;
     response.body = 'Not Found';
   }
+
   return response;
-};
+}
