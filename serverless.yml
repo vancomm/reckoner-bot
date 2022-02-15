@@ -11,6 +11,7 @@ provider:
   name: aws
   runtime: nodejs14.x
   stage: dev
+  profile: serverless
   region: eu-north-1
   environment:
     TELEGRAM_BOT_TOKEN: ${file(./.env):TELEGRAM_BOT_TOKEN, ''}
