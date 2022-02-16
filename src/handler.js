@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import 'dotenv/config';
-import initBot from './bot-commands.js';
+import initBot from './init-bot.js';
 
 const bot = initBot();
 
