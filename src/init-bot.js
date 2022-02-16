@@ -8,8 +8,8 @@ export default function initBot() {
   bot.use(session());
   bot.use(stage.middleware());
 
-  bot.start((ctx) => ctx.reply('Hello!', Markup.removeKeyboard()));
-  bot.help((ctx) => ctx.reply('Work in progress!'));
+  bot.start((ctx) => ctx.reply('Send me a .json containing a FNS receipt to start!', Markup.removeKeyboard()));
+  bot.help((ctx) => ctx.reply('how about you help me?\nmessage @vancomm if you have experience with telegraf framework'));
 
   bot.command('secret', (ctx) => ctx.replyWithMarkdownV2('||Аня и Лера красотки||'));
 

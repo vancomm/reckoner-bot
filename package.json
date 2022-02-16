@@ -21,7 +21,6 @@
   "dependencies": {
     "axios": "^0.26.0",
     "dotenv": "^16.0.0",
-    "telegraf": "^4.7.0",
-    "vancomm_reckoner": "^0.1.0"
+    "telegraf": "^4.7.0"
   }
 }

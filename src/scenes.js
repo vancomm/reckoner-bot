@@ -21,8 +21,6 @@ removeScene.on('text', (ctx) => {
   return ctx.reply('Complete!', Markup.removeKeyboard()).then(() => ctx.scene.enter('nameScene'));
 });
 
-const itemsScene = new Scenes.BaseScene('itemsScene');
-
 const namesScene = new Scenes.BaseScene('nameScene');
 namesScene.enter((ctx) => ctx.replyWithMarkdownV2(
   formatNames(ctx.session.names),
@@ -39,8 +37,12 @@ namesScene.action('remove', (ctx) => {
 });
 namesScene.action('next', (ctx) => {
   ctx.answerCbQuery();
-  return ctx.scene.enter('');
+  return ctx.scene.enter('itemsScene');
 });
+
+const itemsScene = new Scenes.BaseScene('itemsScene');
+itemsScene.enter((ctx) => ctx.reply('Work in progress! Use /quit to go back to main menu.'));
+itemsScene.on('text', (ctx) => ctx.reply('Work in progress! Use /quit to go back to main menu.'));
 
 const stage = new Scenes.Stage([namesScene, addScene, removeScene, itemsScene]);
 stage.command('quit', (ctx) => ctx.scene.leave());
