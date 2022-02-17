@@ -13,6 +13,11 @@ export default function initBot() {
 
   bot.command('secret', (ctx) => ctx.replyWithMarkdownV2('||Аня и Лера красотки||'));
 
+  bot.action(/.+/, (ctx) => {
+    ctx.answerCbQuery();
+    return ctx.reply('This action is no longer available');
+  });
+
   bot.on('text', (ctx) => ctx.reply(ctx.message.text));
   bot.on('document', async (ctx) => {
     const { file_id, file_name } = ctx.message.document;

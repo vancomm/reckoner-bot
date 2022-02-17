@@ -1,10 +1,10 @@
 import { Scenes, Markup } from 'telegraf';
 import { getNamesKeyboard, getRemovalKeyboard } from './keyboards.js';
 
-const formatNames = (names) => {
-  if ((names.length ?? 0) === 0) return 'Buyers list empty!';
+function formatNames(names) {
+  if (!names?.length) return '_Buyers list empty_';
   return `*Buyers:*\n${names.join('\n')}`;
-};
+}
 
 const addScene = new Scenes.BaseScene('addScene');
 addScene.enter((ctx) => ctx.reply('Enter name:'));
@@ -14,17 +14,18 @@ addScene.on('text', (ctx) => {
 });
 
 const removeScene = new Scenes.BaseScene('removeScene');
-removeScene.enter((ctx) => ctx.reply('Select a name to remove', getRemovalKeyboard(ctx)));
+removeScene.enter((ctx) => ctx.reply('Select a name to remove', getRemovalKeyboard(ctx.session.names)));
 removeScene.hears('Cancel', (ctx) => ctx.scene.enter('nameScene'));
-removeScene.on('text', (ctx) => {
+removeScene.on('text', async (ctx) => {
   ctx.session.names = ctx.session.names.filter((name) => name !== ctx.message.text);
-  return ctx.reply('Complete!', Markup.removeKeyboard()).then(() => ctx.scene.enter('nameScene'));
+  await ctx.reply('Complete!', Markup.removeKeyboard());
+  return ctx.scene.enter('nameScene');
 });
 
 const namesScene = new Scenes.BaseScene('nameScene');
 namesScene.enter((ctx) => ctx.replyWithMarkdownV2(
   formatNames(ctx.session.names),
-  getNamesKeyboard(ctx),
+  getNamesKeyboard(ctx.session.names),
 ));
 namesScene.on('text', (ctx) => ctx.reply('Send /quit to leave the scene'));
 namesScene.action('add', (ctx) => {
