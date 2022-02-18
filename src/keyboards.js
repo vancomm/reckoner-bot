@@ -9,9 +9,27 @@ export function getNamesKeyboard(names) {
 }
 
 export function getRemovalKeyboard(names) {
-  const buttons = names.map((name) => [Markup.button.text(name)]);
+  const buttons = names.map((name) => Markup.button.text(name));
+  const rows = buttons.map((btn) => [btn]);
   return Markup.keyboard([
-    ...buttons,
+    ...rows,
     [Markup.button.text('❌ Cancel')],
   ]).oneTime();
+}
+
+export function getQuestionKeyboard() {
+  const buttons = ['yes', 'no'].map((name) => Markup.button.callback(name, name));
+  return Markup.inlineKeyboard([[...buttons]]);
+}
+
+export function getSelectKeyboard(options) {
+  function makeButton([name, chosen]) {
+    if (chosen) return Markup.button.callback(`✅${name}`, name);
+    return Markup.button.callback(name, name);
+  }
+  const buttons = Object.entries(options).map(makeButton);
+  const rows = buttons.map((button) => [button]);
+  return Markup.inlineKeyboard([
+    ...rows,
+  ]);
 }

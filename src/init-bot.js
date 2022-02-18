@@ -12,6 +12,9 @@ export default function initBot() {
   bot.help((ctx) => ctx.reply('how about you help me?\nmessage @vancomm if you have experience with telegraf framework'));
 
   bot.command('secret', (ctx) => ctx.replyWithMarkdownV2('||Аня и Лера красотки||'));
+  bot.command('question', (ctx) => ctx.scene.enter('questionScene'));
+  bot.command('counter', (ctx) => ctx.scene.enter('counterScene'));
+  bot.command('select', (ctx) => ctx.scene.enter('selectScene'));
 
   bot.action(/.+/, (ctx) => {
     ctx.answerCbQuery();
